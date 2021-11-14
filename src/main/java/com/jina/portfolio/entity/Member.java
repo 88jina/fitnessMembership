@@ -1,8 +1,11 @@
 package com.jina.portfolio.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -16,14 +19,27 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "member_cd")
     private Long memberCd;
+
+
+    @NotNull
     @Column(name = "member_nm")
     private String memberNm;
+
+
+    @NotNull
     @Column(name = "member_hp")
     private String memberHp;
+
+
+    @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "member_stt_date")
-    private String memberSttDate;
+    private Date memberSttDate;
+
+    @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "member_end_date")
-    private String memberEndDate;
+    private Date memberEndDate;
 
 
 }
