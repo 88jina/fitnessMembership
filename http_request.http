@@ -1,0 +1,12 @@
+POST http://localhost:8080/member/add
+Content-Type: application/json
+
+{
+  "memberNm": "tester",
+  "memberHp": "010-3164-2102",
+  "memberSttDate": "2020-01-01",
+  "memberEndDate": "2021-01-01"
+}
+
+###
+
