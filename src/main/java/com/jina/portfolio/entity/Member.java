@@ -30,14 +30,16 @@ public class Member {
     @Column(name = "member_hp")
     private String memberHp;
 
+    @Column(name = "member_ent_cd")
+    private String memberEntCd;
 
     @NotNull
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "member_stt_date")
     private Date memberSttDate;
 
     @NotNull
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "member_end_date")
     private Date memberEndDate;
 
