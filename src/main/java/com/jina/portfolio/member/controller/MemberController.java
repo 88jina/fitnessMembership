@@ -21,20 +21,25 @@ public class MemberController {
     @PostMapping("/add")
     public ResponseEntity<Void> createMember(@RequestBody Member member) throws Exception {
         boolean flag = memberService.createMember(member);
-        if(flag==false){
+        if (flag == false) {
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/find")
-    public List<Member> retrieveMemberByMemberEntCd(@RequestParam String memberEntCd){
-        return memberService.retrieveMemberBymemberEntCd(memberEntCd);
+    @GetMapping("/get")
+    public List<Member> retrieveMemberByMemberEntCd(@RequestParam String memberEntCd) {
+        return memberService.retrieveMemberByMemberEntCd(memberEntCd);
     }
 
     @PutMapping("/put")
-    public Member putMember(@RequestBody Member member)throws Exception{
+    public Member putMember(@RequestBody Member member) throws Exception {
         return memberService.putMember(member);
     }
 
+
+    @DeleteMapping("/del")
+    public boolean deleteMember(@RequestParam Long memberCd) {
+        return memberService.deleteMember(memberCd);
+    }
 }
