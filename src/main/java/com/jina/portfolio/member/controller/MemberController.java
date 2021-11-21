@@ -32,4 +32,9 @@ public class MemberController {
         return memberService.retrieveMemberBymemberEntCd(memberEntCd);
     }
 
+    @PutMapping("/put")
+    public Member putMember(@RequestBody Member member)throws Exception{
+        return memberService.putMember(member);
+    }
+
 }

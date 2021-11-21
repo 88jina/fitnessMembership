@@ -50,10 +50,14 @@ public class MemberService {
         return members;
     }
 
-    public Member putMember(Long memberCd, Member member) {
-        final Optional<Member> fetchedMember = memberRepository.findById(memberCd);
+    public Member putMember(Member member) {
+        final Optional<Member> fetchedMember = memberRepository.findById(member.getMemberCd());
         if (fetchedMember.isPresent()) {
-            member.setMemberCd(memberCd);
+            String hpTemp = member.getMemberHp();
+            String memberHp = hpTemp.replaceAll("[^0-9]", "");
+            String memEntCd = memberHp.substring(memberHp.length() - 4, memberHp.length());
+            member.setMemberEntCd(memEntCd);
+            member.setMemberCd(member.getMemberCd());
             return memberRepository.save(member);
         } else {
             return null;
@@ -70,4 +74,5 @@ public class MemberService {
         }
 
     }
+
 }
