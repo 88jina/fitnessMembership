@@ -23,8 +23,6 @@ public class MemberService {
     static String regex = "^[0-9]+$";
     @Autowired
     private MemberRepository memberRepository;
-    @PersistenceContext
-    private EntityManager em;
 
 
     @Description("회원추가")
