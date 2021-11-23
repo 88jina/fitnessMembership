@@ -21,6 +21,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -63,13 +65,43 @@ class MemberControllerTest {
 
     @Test
     void retrieveMemberByMemberEntCd() throws Exception{
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/member/get")
+                        .param("memberEntCd","2102");
+        mockMvc.perform(requestBuilder).andExpect(status().isOk()).andReturn();
+
     }
 
     @Test
     void putMember() throws Exception{
+        Long memberCd = 11L;
+        String memberNm = "수정테스트";
+        String memberHp = "01031652102";
+        Date memberSttDate = SDF.parse("2020-01-01");
+        Date memberEndDate = SDF.parse("2023-01-01");
+
+
+        Member member = Member.builder()
+                .memberCd(memberCd)
+                .memberNm(memberNm)
+                .memberHp(memberHp)
+                .memberSttDate(memberSttDate)
+                .memberEndDate(memberEndDate).build();
+
+        String memberJson = this.setJSONRequest(member);
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/member/put")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(memberJson);
+
+
+        mockMvc.perform(requestBuilder).andReturn().getResponse();
+
     }
 
     @Test
     void deleteMember() throws Exception{
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/member/del")
+                .param("memberCd","11");
+        mockMvc.perform(requestBuilder).andExpect(status().isOk()).andReturn();
     }
 }
