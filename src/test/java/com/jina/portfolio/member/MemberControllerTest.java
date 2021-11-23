@@ -38,7 +38,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
+@RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class MemberControllerTest {
@@ -48,24 +48,9 @@ public class MemberControllerTest {
     @MockBean
     private MemberService memberService;
 
-    @BeforeEach
-    public void before() {
-        mockMvc = MockMvcBuilders
-                .standaloneSetup(MemberController.class)
-                .alwaysExpect(MockMvcResultMatchers.status().isOk())
-                .build();
-        System.out.println("=============================================before");
-
-    }
-
 
     @Test
     public void member() throws Exception{
-
-        mockMvc = MockMvcBuilders
-                .standaloneSetup(MemberController.class)
-                .alwaysExpect(MockMvcResultMatchers.status().isOk())
-                .build();
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String memberNm = "박진아";
@@ -85,8 +70,8 @@ public class MemberControllerTest {
         ObjectWriter ow = objectMapper.writer().withDefaultPrettyPrinter();
         String memberJson = ow.writeValueAsString(member);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/member/add")
-                        .param("Member",memberJson)
-                        .contentType(MediaType.APPLICATION_JSON);
-        this.mockMvc.perform(requestBuilder);
+                        .contentType(MediaType.APPLICATION_JSON)
+                .content(memberJson);
+        mockMvc.perform(requestBuilder).andReturn();
     }
 }
