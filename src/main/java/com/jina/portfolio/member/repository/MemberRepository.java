@@ -11,4 +11,7 @@ import java.util.List;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
     List<Member> findMembersByMemberEntCd(String memberEntCd);
+
+
+    List<Member> findMembersByMemberEndDate(Date now);
 }

@@ -19,8 +19,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -100,8 +98,7 @@ class MemberControllerTest {
 
     @Test
     void deleteMember() throws Exception{
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/member/del")
-                .param("memberCd","11");
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/member/del");
         mockMvc.perform(requestBuilder).andExpect(status().isOk()).andReturn();
     }
 }

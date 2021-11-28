@@ -7,8 +7,11 @@ import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -21,10 +24,10 @@ public class MemberController {
     @PostMapping("/add")
     public ResponseEntity<Void> createMember(@RequestBody Member member) throws Exception {
         boolean flag = memberService.createMember(member);
-        if (flag == false) {
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        if (!flag) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<Void>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/get")
@@ -38,8 +41,14 @@ public class MemberController {
     }
 
 
-    @DeleteMapping("/del")
-    public boolean deleteMember(@RequestParam Long memberCd) {
-        return memberService.deleteMember(memberCd);
+    @Scheduled(cron = "0 0 05 * * ?")
+    public void deleteMember() throws ParseException {
+        Date now = new Date();
+        memberService.deleteMember(now);
+    }
+
+    @GetMapping("/alert-exp")
+    public String alertExpMember(){
+        return "일주일 후 회원권이 만료되는 회원이 있습니다";
     }
 }
