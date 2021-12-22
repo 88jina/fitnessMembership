@@ -3,7 +3,6 @@ package com.jina.portfolio.member.controller;
 
 import com.jina.portfolio.entity.Member;
 import com.jina.portfolio.member.service.MemberService;
-import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +17,11 @@ import java.util.List;
 @RequestMapping("/member")
 public class MemberController {
 
-    @Autowired
-    private MemberService memberService;
+    private final MemberService memberService;
+
+    public MemberController(MemberService memberService) {
+        this.memberService = memberService;
+    }
 
     @PostMapping("/add")
     public ResponseEntity<Void> createMember(@RequestBody Member member) throws Exception {
